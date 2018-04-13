@@ -7427,13 +7427,24 @@ new Vue({
   data: function data() {
     return {
       id: '',
-      data: {},
+      data: {
+        //게시글 내용
+      },
       coData: {
+        //새로추가
+        id: '',
         coName: '',
         coContent: '',
         own: ''
       },
-      coList: {}
+      coList: {
+        //기존
+      },
+      recoData: {
+        coNumber: '',
+        recoName: '',
+        recoContent: ''
+      }
     };
   },
   mounted: function mounted() {
@@ -7449,6 +7460,7 @@ new Vue({
     getComment: function getComment() {
       var _this = this;
 
+      // 게시글의 코멘트 리스트 show
       axios.get('/api/comment/list').then(function (result) {
         _this.coList = result.data.data;
         console.log('기존의 코멘트');
@@ -7458,9 +7470,9 @@ new Vue({
     getData: function getData() {
       var _this2 = this;
 
+      //게시글 상세내용
       axios.get('/api/list/' + this.id).then(function (result) {
         _this2.data = result.data;
-        console.log(_this2.data);
       });
     },
     modify: function modify(id) {
@@ -7469,7 +7481,7 @@ new Vue({
     comment: function comment() {
       var _this3 = this;
 
-      //this.coData.own = this.id
+      // 새로운 코멘트 등록
       axios.post('/api/comment/create', this.coData).then(function (response) {
         console.log('등록하는 코멘트');
         console.log(_this3.coData);
@@ -7478,7 +7490,25 @@ new Vue({
       }), function (error) {
         console.log(error);
       };
-    }
+    },
+    // test: function (id) {
+    //   alert('click' + id)
+    //   $('#passwordModal').modal('show')
+    // },
+    click: function click(id) {
+      alert('click' + id);
+      $('#myModal').modal('show');
+    },
+    recomment: function recomment(id) {}
+    // submit: function () {
+    //   axios.post('/api/comment/create/re', this.recoData).then(response => {
+    //     console.log(this.recoData)
+    //     alert('등록!')
+    //     //location.reload()
+    //   }), error => {
+    //     console.log(error)
+    //   }
+    // }
   }
 });
 

@@ -48,17 +48,29 @@
       </tbody>
     </table>
     <br><br><br><br><br><br>
+
     <table>
       <thead>
       <tr>
+        <td>댓글번호</td>
         <td>작성자</td>
         <td>내용</td>
+        <td></td>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(comment, index) in coList">
-        <td  v-if="comment.own == coData.own">@{{ comment.coName }}</td>
-        <td  v-if="comment.own == coData.own">@{{ comment.coContent }}</td>
+      <tr v-for="(comment, index) in coList" v-if="comment.own == coData.own" @click="click(comment.id)">
+        <td>@{{ comment.id }}</td>
+        <td>@{{ comment.coContent }}</td>
+        <td>@{{ comment.coName }}</td>
+        <td></td>
+        {{--<form>--}}
+        {{--<td>--}}
+        {{--<input type="text" class="" name="recoName" id="recoName" v-model="recoData.recoName">--}}
+        {{--<input type="text" class="" name="recoContent" id="recoContent" v-model="recoData.recoContent">--}}
+        {{--<button class="" @click="submit">re</button>--}}
+        {{--</td>--}}
+        {{--</form>--}}
       </tr>
       </tbody>
     </table>
@@ -66,7 +78,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-10">
-        <form  @submit.prevent="comment">
+        <form @submit.prevent="comment">
           <table>
             <tbody>
             <tr>
@@ -87,10 +99,35 @@
             </tr>
             </tbody>
           </table>
-            <button class="">코멘트 작성</button>
+          <button class="">코멘트 작성</button>
         </form>
       </div>
     </div>
   </div>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordModalLabel">댓글 입력</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form @submit.prevent="recomment()">
+          <div class="form-group">
+            <label for="recoName" class="col-form-label">이름</label>
+            <input class="form-control" id="recoName" v-model="recoData.recoName">
+            <label for="recoContent" class="col-form-label">내용</label>
+            <input class="form-control" id="recoContent" v-model="recoData.recoContent">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" @click="" data-dismiss="modal">등록</button>
+        <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+      </div>
+    </div>
   </div>
 @endsection

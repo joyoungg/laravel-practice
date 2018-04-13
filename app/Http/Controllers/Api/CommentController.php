@@ -40,15 +40,6 @@ class CommentController extends ApiController
     public function list(Request $request)
     {
         $list = Comment::query();
-//        if ($list->own === $request->own) {
-//            $fractal = new Manager();
-//            $paginator = $list->paginate($this->perPage);
-//            $collection = $paginator->getCollection();
-//            $resource = new Collection($collection, new CommentTransformer);
-//            $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-//            $result = $fractal->createData($resource)->toArray();
-//            return $result;
-//        }
         $fractal = new Manager();
         $paginator = $list->paginate($this->perPage);
         $collection = $paginator->getCollection();
@@ -56,11 +47,6 @@ class CommentController extends ApiController
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
         $result = $fractal->createData($resource)->toArray();
         return $result;
-//        $id = $request->own;
-//        $list = Comment::find($id);
-//        $list = Comment::query();
-//        //echo "리스트 내용 확인";
-//        //echo print_r($list);
     }
 
     /**

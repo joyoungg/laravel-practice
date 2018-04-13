@@ -16,6 +16,7 @@ class CommentTransformer extends TransformerAbstract
     public function transform(Comment $comment)
     {
         return [
+            'id' => $comment->id,
             'own' => $comment->own,
             'coName' => $comment->coName,
             'coContent' => $comment->coContent,
