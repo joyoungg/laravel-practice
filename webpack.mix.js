@@ -1,4 +1,16 @@
 let mix = require('laravel-mix');
+var dist = 'public';
+
+if (process.env.NODE_ENV === 'local') {
+  dist += '/.build';
+  mix.setPublicPath(dist);
+}
+
+mix.js('resources/assets/js/app.js', dist + '/js')
+  .extract(['vue', 'jquery', 'bootstrap', 'axios', 'lodash', 'popper.js']);
+// mix.sass('resources/assets/sass/vendor.scss', dist + '/css');
+mix.sass('resources/assets/sass/app.scss', dist + '/css');
+mix.version();
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +23,5 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// mix.js('resources/assets/js/app.js', 'public/js')
+//    .sass('resources/assets/sass/app.scss', 'public/css');
