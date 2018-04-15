@@ -32,14 +32,18 @@ class CommentController extends ApiController
     {
         $comment = $request->all();
         $result = Comment::create($comment);
-
+        if(!($request->comment_id)) {
+            $result->comment_id = $result->id;
+        }
+        $result->save();
         if ($result) return response($result, 200);
         else return response('', 500);
     }
 
-    public function list(Request $request)
+    public function list(Request $request, $id)
     {
-        $list = Comment::query();
+        //$list = Comment::find($id);
+        $list = Comment::where('content_id',$id)->orderBy('comment_id');
         $fractal = new Manager();
         $paginator = $list->paginate($this->perPage);
         $collection = $paginator->getCollection();

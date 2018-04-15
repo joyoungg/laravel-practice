@@ -39,6 +39,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::post('/modify', 'ContentController@update');
     Route::post('/comment/create', 'CommentController@create');
 //    Route::get('/comment/list/','CommentController@list');
-    Route::get('/comment/list','CommentController@list');
+    Route::get('/comment/list/{id}','CommentController@list');
     Route::post('/comment/create/re','CommentAddController@create');
 });

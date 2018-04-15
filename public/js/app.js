@@ -7430,27 +7430,23 @@ new Vue({
       data: {
         //게시글 내용
       },
-      coData: {
+      addComment: {
         //새로추가
-        id: '',
-        coName: '',
-        coContent: '',
-        own: ''
+        content_id: '',
+        comment_id: '',
+        name: '',
+        content: '',
+        index: ''
       },
       coList: {
         //기존
-      },
-      recoData: {
-        coNumber: '',
-        recoName: '',
-        recoContent: ''
       }
     };
   },
   mounted: function mounted() {
     this.$nextTick(function () {
       this.id = $('#id').val();
-      this.coData.own = this.id;
+      this.addComment.content_id = this.id;
       //console.log('글번호는' + this.coData.own)
       this.getData();
       this.getComment();
@@ -7461,7 +7457,7 @@ new Vue({
       var _this = this;
 
       // 게시글의 코멘트 리스트 show
-      axios.get('/api/comment/list').then(function (result) {
+      axios.get('/api/comment/list/' + this.id).then(function (result) {
         _this.coList = result.data.data;
         console.log('기존의 코멘트');
         console.log(_this.coList);
@@ -7475,40 +7471,19 @@ new Vue({
         _this2.data = result.data;
       });
     },
-    modify: function modify(id) {
-      location.href = '/list/modify/' + id;
+    modify: function modify() {
+      // console.log(id)
+      location.href = '/list/modify/' + this.id;
     },
-    comment: function comment() {
-      var _this3 = this;
-
-      // 새로운 코멘트 등록
-      axios.post('/api/comment/create', this.coData).then(function (response) {
-        console.log('등록하는 코멘트');
-        console.log(_this3.coData);
+    mkComment: function mkComment(id) {
+      this.addComment.comment_id = id;
+      axios.post('/api/comment/create', this.addComment).then(function (response) {
         alert('코멘트 등록!');
         location.reload();
       }), function (error) {
         console.log(error);
       };
-    },
-    // test: function (id) {
-    //   alert('click' + id)
-    //   $('#passwordModal').modal('show')
-    // },
-    click: function click(id) {
-      alert('click' + id);
-      $('#myModal').modal('show');
-    },
-    recomment: function recomment(id) {}
-    // submit: function () {
-    //   axios.post('/api/comment/create/re', this.recoData).then(response => {
-    //     console.log(this.recoData)
-    //     alert('등록!')
-    //     //location.reload()
-    //   }), error => {
-    //     console.log(error)
-    //   }
-    // }
+    }
   }
 });
 
@@ -7561,6 +7536,7 @@ new Vue({
   mounted: function mounted() {
     this.$nextTick(function () {
       this.id = $('#id').val();
+      console.log(this.id);
       this.getData();
     });
   },
@@ -7570,7 +7546,6 @@ new Vue({
 
       axios.get('/api/list/' + this.id).then(function (result) {
         _this.data = result.data;
-        console.log(_this.data);
       });
     },
     submit: function submit() {
@@ -7610,6 +7585,7 @@ new Vue({
       var _this = this;
 
       axios.post('/api/write', this.data).then(function (response) {
+        console.log(_this.data);
         _this.submitted = true;
         console.log(_this.data);
         alert('등록되었습니다.');
