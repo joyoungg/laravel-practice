@@ -6,27 +6,23 @@ new Vue({
       data: {
         //게시글 내용
       },
-      coData: {
+    addComment: {
         //새로추가
-        id: '',
-        coName: '',
-        coContent: '',
-        own: '',
-      },
+        content_id: '',
+        comment_id: '',
+        name: '',
+        content: '',
+        index:'',
+    },
       coList: {
         //기존
-      },
-      recoData: {
-        coNumber: '',
-        recoName: '',
-        recoContent: '',
       },
     }
   },
   mounted: function () {
     this.$nextTick(function () {
       this.id = $('#id').val()
-      this.coData.own = this.id
+      this.addComment.content_id = this.id
       //console.log('글번호는' + this.coData.own)
       this.getData()
       this.getComment()
@@ -35,7 +31,7 @@ new Vue({
   methods: {
     getComment: function () {
       // 게시글의 코멘트 리스트 show
-      axios.get('/api/comment/list').then(result => {
+      axios.get('/api/comment/list/' + this.id).then(result => {
         this.coList = result.data.data
         console.log('기존의 코멘트')
         console.log(this.coList)
@@ -47,39 +43,18 @@ new Vue({
         this.data = result.data
       })
     },
-    modify: function (id) {
-      location.href = '/list/modify/' + id
+    modify: function () {
+      // console.log(id)
+      location.href = '/list/modify/' + this.id
     },
-    comment: function () {
-      // 새로운 코멘트 등록
-      axios.post('/api/comment/create', this.coData).then(response => {
-        console.log('등록하는 코멘트')
-        console.log(this.coData)
+    mkComment: function (id) {
+      this.addComment.comment_id = id
+      axios.post('/api/comment/create', this.addComment).then(response => {
         alert('코멘트 등록!')
         location.reload()
       }), error => {
         console.log(error)
       }
     },
-    // test: function (id) {
-    //   alert('click' + id)
-    //   $('#passwordModal').modal('show')
-    // },
-    click: function (id) {
-      alert('click' + id)
-      $('#myModal').modal('show')
-    },
-    recomment:function (id) {
-
-    },
-    // submit: function () {
-    //   axios.post('/api/comment/create/re', this.recoData).then(response => {
-    //     console.log(this.recoData)
-    //     alert('등록!')
-    //     //location.reload()
-    //   }), error => {
-    //     console.log(error)
-    //   }
-    // }
   },
 })

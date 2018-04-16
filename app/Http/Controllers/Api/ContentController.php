@@ -54,7 +54,7 @@ class ContentController extends ApiController
         $content = Content::find($id);
 
         $content->title = $request->title;
-        //$content->content = $request->content;
+        $content->content = $request->content;
         $result = $content->save();
 
     }

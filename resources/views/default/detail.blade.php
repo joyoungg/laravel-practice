@@ -48,37 +48,61 @@
       </tbody>
     </table>
     <br><br><br><br><br><br>
-
-    <table>
-      <thead>
-      <tr>
-        <td>댓글번호</td>
-        <td>작성자</td>
-        <td>내용</td>
-        <td></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(comment, index) in coList" v-if="comment.own == coData.own" @click="click(comment.id)">
-        <td>@{{ comment.id }}</td>
-        <td>@{{ comment.coContent }}</td>
-        <td>@{{ comment.coName }}</td>
-        <td></td>
-        {{--<form>--}}
-        {{--<td>--}}
-        {{--<input type="text" class="" name="recoName" id="recoName" v-model="recoData.recoName">--}}
-        {{--<input type="text" class="" name="recoContent" id="recoContent" v-model="recoData.recoContent">--}}
-        {{--<button class="" @click="submit">re</button>--}}
-        {{--</td>--}}
-        {{--</form>--}}
-      </tr>
-      </tbody>
-    </table>
+    <ul v-for="(comment, index) in coList">
+      <li>
+        <div>
+          @{{ comment.id }}
+          @{{ comment.content }}
+          @{{ comment.name }}
+        </div>
+        <div class="btn-group pull-right"
+             style="font-size: 12px; line-height: 1;">
+          <button type="button"
+                  class="btn-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">댓글달기<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <div>
+                <form @submit.prevent="mkComment(comment.id)">
+                  <div class="form-group">
+                    <input type="hidden" id="my" value="comment.id" v-model="addComment.comment_id">
+                    <label for="name" class="col-form-label">이름</label>
+                    <input class="form-control" id="name" v-model="addComment.name">
+                    <label for="content" class="col-form-label">내용</label>
+                    <input class="form-control" id="content" v-model="addComment.content">
+                    <button> 등록 </button>
+                  </div>
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+          {{--<div id="add-reply" style="display: none">--}}
+            {{--<div>--}}
+              {{--<form @submit.prevent="mkComment(index)">--}}
+                {{--<div class="form-group">--}}
+                  {{--<input type="hidden" id="comment_id" v-model="addComment.comment_id">--}}
+                  {{--<label for="name" class="col-form-label">이름</label>--}}
+                  {{--<input class="form-control" id="name" v-model="addComment.name">--}}
+                  {{--<label for="content" class="col-form-label">내용</label>--}}
+                  {{--<input class="form-control" id="content" v-model="addComment.content">--}}
+                  {{--<button> 등록 </button>--}}
+                {{--</div>--}}
+              {{--</form>--}}
+            {{--</div>--}}
+          {{--</div>--}}
+      </li>
+    </ul>
     <br><br><br><br>
+
+    {{--댓글남기기 --}}
     <div class="row">
       <div class="col-2"></div>
       <div class="col-10">
-        <form @submit.prevent="comment">
+        <form @submit.prevent="mkComment()">
           <table>
             <tbody>
             <tr>
@@ -86,7 +110,7 @@
                 <label for="nickname">이름</label>
               </th>
               <td>
-                <input type="text" name="nickname" id="nickname" v-model="coData.coName">
+                <input type="text" name="nickname" id="nickname" v-model="addComment.name">
               </td>
             </tr>
             <tr>
@@ -94,7 +118,7 @@
                 <label for="coContent">내용</label>
               </th>
               <td>
-                <textarea name="coContent" id="coContent" cols="80" rows="5" v-model="coData.coContent"></textarea>
+                <textarea name="coContent" id="coContent" cols="80" rows="5" v-model="addComment.content"></textarea>
               </td>
             </tr>
             </tbody>
@@ -104,30 +128,5 @@
       </div>
     </div>
   </div>
-  </div>
-
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="passwordModalLabel">댓글 입력</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form @submit.prevent="recomment()">
-          <div class="form-group">
-            <label for="recoName" class="col-form-label">이름</label>
-            <input class="form-control" id="recoName" v-model="recoData.recoName">
-            <label for="recoContent" class="col-form-label">내용</label>
-            <input class="form-control" id="recoContent" v-model="recoData.recoContent">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" @click="" data-dismiss="modal">등록</button>
-        <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
-      </div>
-    </div>
   </div>
 @endsection

@@ -9,15 +9,15 @@ new Vue({
   mounted: function () {
     this.$nextTick(function () {
       this.id = $('#id').val()
+        console.log(this.id)
       this.getData()
     })
   },
   methods: {
     getData: function () {
-      axios.get('/api/list/'+ this.id ).then(result => {
-        this.data = result.data
-        console.log(this.data)
-      })
+        axios.get('/api/list/' + this.id).then(result => {
+            this.data = result.data
+        })
     },
     submit:function () {
       console.log(this.data)
