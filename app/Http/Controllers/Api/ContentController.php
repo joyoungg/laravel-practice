@@ -25,7 +25,7 @@ class ContentController extends ApiController
 
     public function list(Request $request)
     {
-        $list = Content::query();
+        $list = Content::query()->orderBy('id', 'DESC');
         //$transformer = new ContentTransformer;
 
         $fractal = new Manager();
