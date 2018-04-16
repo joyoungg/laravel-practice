@@ -13,6 +13,7 @@ new Vue({
   methods: {
     submit: function () {
       axios.post('/api/write', this.data).then(response => {
+        console.log(this.data)
         this.submitted = true
         console.log(this.data)
         alert('등록되었습니다.')
