@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Laravel practice</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>Joyoung</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -78,8 +78,10 @@
 {{--</div>--}}
 {{--@endif--}}
 @include('layout.header')
+
 <div id="app">
   @yield('content')
+
 </div>
 
 <script src="{{ mix('/js/manifest.js', config('app.dist')) }}"></script>

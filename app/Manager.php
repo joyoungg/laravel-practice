@@ -7,16 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Comment extends Model
+class Manager extends Model
 {
-    use SoftDeletes;
-
-    //public $timestamps = false;
-
-//    protected $fillable = ['content_id', 'comment_id', 'name', 'content'];
-    protected $fillable = ['content_id', 'name', 'content'];
-    protected $table = 'comments';
-    protected $dates = ['deleted_at'];
+    protected $fillable = ['student_id', 'subject_id'];
+    protected $table = 'mamngers';
 
     protected static function boot()
     {

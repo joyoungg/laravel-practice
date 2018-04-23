@@ -3,7 +3,9 @@
     'write': './default/write',
     'list': './default/list',
     'detail': './default/detail',
-    'modify' : './default/modify'
+    'modify' : './default/modify',
+    'default' : './default/default',
+    'todo' : './default/todo'
   }
 
   $(document).ready(function () {

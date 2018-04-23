@@ -23,6 +23,23 @@
       </tr>
       </tbody>
     </table>
+    <div class="text-center">
+      <paginate
+              :page-count="page.total_pages"
+              :per_page="page.per_page"
+              :page-count="Math.ceil(page.total / page.per_page)"
+              :page-range="3"
+              :margin-pages="0"
+              :click-handler="getPage"
+              :prev-text="'Prev'"
+              :next-text="'Next'"
+              :container-class="'pagination'">
+      </paginate>
+    </div>
+  </div>
+
+  <div>
 
   </div>
+
 @endsection

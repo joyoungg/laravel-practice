@@ -4,13 +4,16 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import Paginate from 'vuejs-paginate'
 
 window.Vue = require('vue');
+
 
 require('./bootstrap');
 require('./container');
 require('./validate');
 
+Vue.component('paginate', Paginate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
