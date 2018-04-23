@@ -18,9 +18,11 @@
 Route::get('/', function () {
     return view('default.main');
 });
-Route::get('/login', function () {
-    return view('default.login');
+Route::get('/kakao', function () {
+    return view('default.kakao');
 });
+
+
 Route::get('/write', function () {
     return view('default.write');
 });
@@ -60,3 +62,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
     Route::post('/done', 'TodoController@update');
     Route::delete('/erase/{id}', 'TodoController@destroy');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

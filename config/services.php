@@ -34,5 +34,9 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'kakao' => [
+        'client_id' => env('KAKAO_KEY'),
+        'client_secret' => env('KAKAO_SECRET'),
+        'redirect' => env('KAKAO_REDIRECT_URI'),
+    ],
 ];

@@ -25,7 +25,25 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+//    protected $redirectTo = '/';
+
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('kakao')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('kakao')->stateless()->user();
+
+        // $user->token;
+    }
 
     /**
      * Create a new controller instance.
