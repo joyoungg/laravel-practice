@@ -44,6 +44,9 @@
             //   'src': res.properties.profile_image,
             //   'alt': res.properties.nickname + '님의 프로필 사진'
             // }))
+            console.log(JSON.stringify(res.kaccount_email));
+            console.log(JSON.stringify(res.id));
+            console.log(JSON.stringify(res.properties.nickname));
           },
           fail: function (error) {
             console.log(error)
@@ -57,7 +60,6 @@
         //alert(JSON.stringify(err));
       }
     })
-
     function createKakaotalkLogout () {
       $('#kakao-logged-group .kakao-logout-btn,#kakao-logged-group .kakao-login-btn').remove()
       var logoutBtn = $('<a/>', {'class': 'kakao-logout-btn', 'text': '로그아웃'})
@@ -81,9 +83,6 @@
       // createKakaotalkLogin()
     }
   })
-
-
 </script>
-
 </body>
 </html>
