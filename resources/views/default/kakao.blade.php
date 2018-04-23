@@ -36,15 +36,13 @@
           url: '/v1/user/me',
           success: function (res) {
             Kakao.Auth.getStatus(function (statusObj) {
-              alert('hi' + statusObj)
-              var refreshToken = Kakao.Auth.getRefreshToken()
+              alert(statusObj)
             })
             $('#kakao-profile').append(res.properties.nickname)
             // $('#kakao-profile').append($('<img/>', {
             //   'src': res.properties.profile_image,
             //   'alt': res.properties.nickname + '님의 프로필 사진'
             // }))
-            console.log(JSON.stringify(res.kaccount_email));
             console.log(JSON.stringify(res.id));
             console.log(JSON.stringify(res.properties.nickname));
           },

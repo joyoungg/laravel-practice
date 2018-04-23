@@ -64,4 +64,6 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('login/kakao', 'Auth\LoginController@redirectToProvider');
+Route::get('login/kakao/callback', 'Auth\LoginController@handleProviderCallback');
