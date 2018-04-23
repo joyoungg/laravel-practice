@@ -4,6 +4,10 @@ new Vue({
     return {
       data: {},
       id: '',
+      page: {
+        nextPageUrl: '',
+        prevPageUrl: '',
+      },
     }
   },
   mounted: function () {
@@ -14,12 +18,28 @@ new Vue({
   },
   methods: {
     getData: function () {
-      axios.get('/api/list').then(result => {
-        this.data = result.data.data
+      axios.get('/api/list').then(response => {
+        console.log(response)
+        console.log(response.data.data)
+        console.log(response.data.meta)
+        this.data = response.data.data
+        this.page = response.data.meta.pagination
+        console.log(this.page.per_page)
+        // this.data = response.data.data
+        // this.page = response.data.meta.pagination
+        // console.log(this.data)
+        // console.log(this.page)
+      }, error => {
+        console.error(error)
       })
     },
     view: function (id) {
       location.href = '/list/detail/' + id
     },
+    getPage: function (num) {
+      console.log('click' + num + 'page')
+      this.page.current_page = num
+      //this.getData()
+    }
   }
 })

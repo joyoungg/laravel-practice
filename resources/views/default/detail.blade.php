@@ -51,6 +51,7 @@
     <ul v-for="(comment, index) in coList">
       <li>
         <div>
+          <span v-if="!(comment.id == comment.comment_id)">ㄴ</span>
           @{{ comment.id }}
           @{{ comment.content }}
           @{{ comment.name }}

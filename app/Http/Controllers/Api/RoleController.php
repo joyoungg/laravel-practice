@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Comment;
+use App\Role;
 use Illuminate\Http\Request;
 use App\Transformer\CommentTransformer;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Manager;
 
-class CommentController extends ApiController
+class RoleController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -30,26 +30,12 @@ class CommentController extends ApiController
      */
     public function create(Request $request)
     {
-        $comment = $request->all();
-        $result = Comment::create($comment);
-        if(!($request->comment_id)) {
-            $result->comment_id = $result->id;
-        }
-        $result->save();
-        if ($result) return response($result, 200);
-        else return response('', 500);
+
     }
 
     public function list(Request $request, $id)
     {
-        $list = Comment::where('content_id', $id)->orderBy('comment_id');
-        $fractal = new Manager();
-        $paginator = $list->paginate($this->perPage);
-        $collection = $paginator->getCollection();
-        $resource = new Collection($collection, new CommentTransformer);
-        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
-        $result = $fractal->createData($resource)->toArray();
-        return $result;
+
     }
 
     /**

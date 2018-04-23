@@ -29,4 +29,23 @@
       </div>
     </form>
   </div>
+  @if ($errors->has('name'))
+    <div class="name">
+            <span class="invalid-feedback">
+              <strong>{{ $errors->first('name') }}</strong>
+            </span>
+    </div>
+  @elseif($errors->has('title'))
+    <div class="title">
+            <span class="invalid-feedback">
+              <strong>{{ $errors->first('title') }}</strong>
+            </span>
+    </div>
+  @else()
+    <div class="content">
+            <span class="invalid-feedback">
+              <strong> content empty! </strong>
+            </span>
+    </div>
+  @endif
 @endsection

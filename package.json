@@ -20,6 +20,7 @@
         "vue": "^2.5.16"
     },
     "dependencies": {
-        "vee-validate": "^2.0.6"
+        "vee-validate": "^2.0.6",
+        "vuejs-paginate": "^1.9.0"
     }
 }

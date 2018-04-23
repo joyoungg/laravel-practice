@@ -67,14 +67,14 @@
 <body>
 <div class="flex-center position-ref full-height">
   {{--@if (Route::has('login'))--}}
-    {{--<div class="top-right links">--}}
-      {{--@auth--}}
-        {{--<a href="{{ url('/home') }}">Home</a>--}}
-      {{--@else--}}
-        {{--<a href="{{ route('login') }}">Login</a>--}}
-        {{--<a href="{{ route('register') }}">Register</a>--}}
-      {{--@endauth--}}
-    {{--</div>--}}
+  {{--<div class="top-right links">--}}
+  {{--@auth--}}
+  {{--<a href="{{ url('/home') }}">Home</a>--}}
+  {{--@else--}}
+  {{--<a href="{{ route('login') }}">Login</a>--}}
+  {{--<a href="{{ route('register') }}">Register</a>--}}
+  {{--@endauth--}}
+  {{--</div>--}}
   {{--@endif--}}
 
   <div class="content">
@@ -83,10 +83,10 @@
     </div>
 
     <div class="links">
+      <a href="/login">카카오톡 로그인</a>
       <a href="/write">게시글 작성</a>
       <a href="/list">게시글 확인</a>
-      <a href="">News</a>
-      <a href="">Forge</a>
+      <a href="/todo">Todo List</a>
       <a href="">GitHub</a>
     </div>
   </div>

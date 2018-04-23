@@ -18,7 +18,7 @@ class CommentTransformer extends TransformerAbstract
         return [
             'id' => $comment->id,
             'content_id' => $comment->content_id,
-            'conmment_id' => $comment->comment_id,
+            'comment_id' => $comment->comment_id,
             'name' => $comment->name,
             'content' => $comment->content,
         ];

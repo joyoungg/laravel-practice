@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container"></div>
   <div class="title m-b-md">
-    My Page
+    <h1></h1>
   </div>
   {{--<div class="links">--}}
     {{--<a href="/write">게시글 작성</a>--}}

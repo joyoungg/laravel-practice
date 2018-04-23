@@ -13,14 +13,16 @@ new Vue({
   methods: {
     submit: function () {
       axios.post('/api/write', this.data).then(response => {
-        console.log(this.data)
         this.submitted = true
-        console.log(this.data)
+        console.log(response)
         alert('등록되었습니다.')
-        location.href = '/list'
-      }, error => {
-        console.log(error)
-        this.submitted = false
+        // location.href = '/list'
+      }, errors => {
+        console.log(errors)
+        if (errors.response.status == '422') {
+          console.log(errors.response)
+        }
+
       })
     },
   }
