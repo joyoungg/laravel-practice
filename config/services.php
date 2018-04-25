@@ -34,9 +34,15 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-    'kakao' => [
-        'client_id' => env('KAKAO_KEY'),
-//        'client_secret' => env('KAKAO_SECRET'),
-        'redirect' => env('KAKAO_REDIRECT_URI'),
+
+    'naver' => [
+        'client_id' => env('NAVER_KEY'),
+        'client_secret' => env('NAVER_SECRET'),
+        'redirect' => env('NAVER_REDIRECT_URI'),
     ],
+//    'kakao' => [
+//        'client_id' => env('KAKAO_KEY'),
+//        'client_secret' => '',
+//        'redirect' => env('KAKAO_REDIRECT_URI'),
+//    ],
 ];

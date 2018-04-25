@@ -33,18 +33,24 @@
       persistRefreshToken: true,
       success: function (authObj) {
         Kakao.API.request({
-          url: '/v1/user/me',
+          url: '/v1/user/access_token_info',
           success: function (res) {
-            Kakao.Auth.getStatus(function (statusObj) {
-              alert(statusObj)
-            })
-            $('#kakao-profile').append(res.properties.nickname)
+            // Kakao.Auth.getStatus(function (statusObj) {
+            //   //console.log(statusObj)
+            // })
+            console.log(JSON.stringify(authObj))
+            console.log(res)
+            //console.log(res.properties.profile_image)
+            //$('#kakao-profile').append(res.properties.nickname)
             // $('#kakao-profile').append($('<img/>', {
             //   'src': res.properties.profile_image,
             //   'alt': res.properties.nickname + '님의 프로필 사진'
             // }))
-            console.log(JSON.stringify(res.id));
-            console.log(JSON.stringify(res.properties.nickname));
+            console.log(1)
+            // console.log(JSON.stringify(res.id))
+            // console.log(JSON.stringify(res.properties.nickname))
+            //document.location.href='/';
+
           },
           fail: function (error) {
             console.log(error)
@@ -73,11 +79,11 @@
     }
 
     if (Kakao.Auth.getRefreshToken() != undefined && Kakao.Auth.getRefreshToken().replace(/ /gi, '') != '') {
-      console.log(1)
+      console.log(123)
       //createKakaotalkLogout()
       //getKakaotalkUserProfile()
     } else {
-      console.log(2)
+      console.log(223)
       // createKakaotalkLogin()
     }
   })

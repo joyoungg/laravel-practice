@@ -16,7 +16,8 @@
       </thead>
       <tbody>
       <tr v-for="(content, index) in data" @click="view(content.id)">
-        <th class="py-3">@{{ content.id }}</th>
+        {{--<th class="py-3">@{{ content.id }}</th>--}}
+        <th class="py-3">@{{ page.total - (page.current_page - 1) * (page.per_page) - index }}</th>
         <th class="py-3">@{{ content.name }}</th>
         <th class="py-3">@{{ content.title }}</th>
         <th class="py-3">@{{ content.content }}</th>

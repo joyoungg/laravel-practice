@@ -7550,7 +7550,8 @@ new Vue({
       id: '',
       page: {
         nextPageUrl: '',
-        prevPageUrl: ''
+        prevPageUrl: '',
+        per_page: '1'
       }
     };
   },
@@ -7564,17 +7565,12 @@ new Vue({
     getData: function getData() {
       var _this = this;
 
-      axios.get('/api/list').then(function (response) {
+      axios.get('/api/list?' + this.page.per_page).then(function (response) {
+        console.log(_this.page.current_page);
         console.log(response);
         console.log(response.data.data);
-        console.log(response.data.meta);
         _this.data = response.data.data;
         _this.page = response.data.meta.pagination;
-        console.log(_this.page.per_page);
-        // this.data = response.data.data
-        // this.page = response.data.meta.pagination
-        // console.log(this.data)
-        // console.log(this.page)
       }, function (error) {
         console.error(error);
       });
@@ -7583,9 +7579,8 @@ new Vue({
       location.href = '/list/detail/' + id;
     },
     getPage: function getPage(num) {
-      console.log('click' + num + 'page');
       this.page.current_page = num;
-      //this.getData()
+      this.getData();
     }
   }
 });

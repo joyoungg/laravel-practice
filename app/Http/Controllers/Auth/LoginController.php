@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use App\Http\Controllers\Controller;
+//use http\Env\Request;
+//use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -25,12 +31,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-//    protected $redirectTo = '/';
+    protected $redirectTo = '/';
 
+    public function getLogout(){
+        Auth::logout();
+    }
 
     public function redirectToProvider()
     {
-        return Socialite::driver('kakao')->redirect();
+        //return \Socialite::with('kakao')->redirect();
     }
 
     /**
@@ -38,11 +47,28 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(Request $request)
     {
-        $user = Socialite::driver('kakao')->stateless()->user();
+//        $user = \Socialite::driver('kakao')->user();
+//        //$kakaoid = $user->getId();
+//        //$avatar = $user->getAvatar();
+//        $kakaoUser = User::where('kakaoid',$kakaoid)->first();
+//
+//        if ($kakaoUser){
+//            Auth::login($kakaoUser);
+//            return redirect('/');
+//        }
+//        $request->session()->put('kakaoid', $kakaoid);
+//        //$request->session()->put('avatar', $avatar);
+//
+//        return redirect('register');
 
         // $user->token;
+    }
+
+    protected function guard()
+    {
+        return Auth::guard('api');
     }
 
     /**

@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,6 +40,10 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    protected function guard()
+    {
+        return Auth::guard('api');
+    }
     /**
      * Get a validator for an incoming registration request.
      *

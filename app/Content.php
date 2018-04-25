@@ -14,7 +14,7 @@ class Content extends Model
 
     protected $fillable = ['title', 'name', 'content'];
     protected $table = 'content';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     protected static function boot()
     {
