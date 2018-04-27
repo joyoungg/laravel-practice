@@ -18,9 +18,13 @@ class EventServiceProvider extends ServiceProvider
 //        'App\Events\Event' => [
 //            'App\Listeners\EventListener',
 //        ],
-        SocialiteWasCalled::class => [
-            NaverExtendSocialite::class,
-//            'SocialiteProviders\Kakao\KakaoExtendSocialite@handle',
+//        SocialiteWasCalled::class => [
+//            NaverExtendSocialite::class,
+//        ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // add your listeners (aka providers) here
+            'SocialiteProviders\\Naver\\NaverExtendSocialite@handle',
+            'SocialiteProviders\\Kakao\\KakaoExtendSocialite@handle',
         ],
     ];
 

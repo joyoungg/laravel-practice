@@ -80,9 +80,10 @@ Route::group(['prefix' => 'api', 'namespace' => 'Api'], function () {
 });
 
 Auth::routes();
-Route::get('/auth/logout', 'NaverAuthController@getLogout');
+Route::get('/auth/naver/logout', 'NaverAuthController@getLogout');
 Route::get('/auth/naver', 'NaverAuthController@redirectToProvider');
 Route::get('/auth/naver/callback', 'NaverAuthController@handleProviderCallback');
-//Route::get('login/kakao', 'Auth\LoginController@redirectToProvider');
-//Route::get('login/kakao/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/auth/kakao', 'Auth\LoginController@redirectToProvider');
+Route::get('/auth/kakao/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/auth/kakao/logout', 'Auth\LoginController@getLogout');
 //Route::get('/home', 'HomeController@index')->name('home');

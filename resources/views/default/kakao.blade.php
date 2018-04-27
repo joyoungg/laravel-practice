@@ -33,24 +33,21 @@
       persistRefreshToken: true,
       success: function (authObj) {
         Kakao.API.request({
-          url: '/v1/user/access_token_info',
+          url: '/v1/user/me',
           success: function (res) {
             // Kakao.Auth.getStatus(function (statusObj) {
             //   //console.log(statusObj)
             // })
-            console.log(JSON.stringify(authObj))
-            console.log(res)
-            //console.log(res.properties.profile_image)
+            console.log(JSON.stringify(res));
+            console.log(JSON.stringify(res.id));
+            console.log(res.kaccount_email);
+            console.log(JSON.stringify(res.properties.profile_image));
+            console.log(JSON.stringify(res.properties.nickname));
             //$('#kakao-profile').append(res.properties.nickname)
             // $('#kakao-profile').append($('<img/>', {
             //   'src': res.properties.profile_image,
             //   'alt': res.properties.nickname + '님의 프로필 사진'
             // }))
-            console.log(1)
-            // console.log(JSON.stringify(res.id))
-            // console.log(JSON.stringify(res.properties.nickname))
-            //document.location.href='/';
-
           },
           fail: function (error) {
             console.log(error)
