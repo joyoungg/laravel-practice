@@ -7245,6 +7245,8 @@ var map = {
 	"./default/detail.js": "./resources/assets/js/default/detail.js",
 	"./default/list": "./resources/assets/js/default/list.js",
 	"./default/list.js": "./resources/assets/js/default/list.js",
+	"./default/map": "./resources/assets/js/default/map.js",
+	"./default/map.js": "./resources/assets/js/default/map.js",
 	"./default/modify": "./resources/assets/js/default/modify.js",
 	"./default/modify.js": "./resources/assets/js/default/modify.js",
 	"./default/todo": "./resources/assets/js/default/todo.js",
@@ -7423,7 +7425,8 @@ module.exports = Component.exports
     'detail': './default/detail',
     'modify': './default/modify',
     'default': './default/default',
-    'todo': './default/todo'
+    'todo': './default/todo',
+    'map': './default/map'
   };
 
   $(document).ready(function () {
@@ -7582,6 +7585,56 @@ new Vue({
       this.page.current_page = num;
       this.getData();
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/default/map.js":
+/***/ (function(module, exports) {
+
+new Vue({
+  el: '#app',
+  data: function data() {
+    return {
+      data: {}
+    };
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      //this.getData()
+    });
+  },
+  methods: {
+    search: function search() {
+      axios.get('/api/search', this.data).then(function (response) {});
+    }
+    //     getData: function () {
+    //       $client_id = "JhAG4x3MO1GR7_4VTrTg";
+    //       $client_secret = "f9BLgLA_fD";
+    //       $encText = urlencode("불정로 6");
+    //       $url = "https://openapi.naver.com/v1/map/geocode?query=".$encText; // json
+    // // $url = "https://openapi.naver.com/v1/map/geocode.xml?query=".$encText; // xml
+    //
+    //       $is_post = false;
+    //       $ch = curl_init();
+    //       curl_setopt($ch, CURLOPT_URL, $url);
+    //       curl_setopt($ch, CURLOPT_POST, $is_post);
+    //       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //       $headers = array();
+    //       $headers = "X-Naver-Client-Id: ".$client_id;
+    //       $headers = "X-Naver-Client-Secret: ".$client_secret;
+    //       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    //       $response = curl_exec ($ch);
+    //       $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    //       echo "status_code:".$status_code."<br>";
+    //       curl_close ($ch);
+    //       if($status_code == 200) {
+    //         echo $response;
+    //       } else {
+    //         echo "Error 내용:".$response;
+    //       }
+    //     },
   }
 });
 

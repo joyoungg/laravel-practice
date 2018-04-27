@@ -22,8 +22,8 @@ Route::get('/kakao', function () {
     return view('default.kakao');
 });
 
-Route::get('/calendar', function () {
-    return view('default.calendar');
+Route::get('/map', function () {
+    return view('default.map');
 });
 
 //게시판
