@@ -44,7 +44,7 @@
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
       center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-      level:3 // 지도의 확대 레벨
+      level: 3 // 지도의 확대 레벨
     }
 
   // 지도를 생성합니다
@@ -74,7 +74,10 @@
     //ps.categorySearch(categoryVal,  placesSearchCB);
 
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch(keyword, placesSearchCB,{category_group_code:categoryVal})
+    ps.keywordSearch(keyword, placesSearchCB, {
+      category_group_code: categoryVal,
+      size: 10
+    })
   }
 
   // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -87,7 +90,6 @@
 
       // 페이지 번호를 표출합니다
       displayPagination(pagination)
-
 
     } else if (status === daum.maps.services.Status.ZERO_RESULT) {
 

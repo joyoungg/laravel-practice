@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+
 //use http\Env\Request;
 //use App\Http\Requests\Request;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-
+use Response;
 class LoginController extends Controller
 {
     /*
@@ -26,20 +27,18 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    public function getLogout(){
-        Auth::logout();
+    public function index()
+    {
+        return Auth::user();
     }
+//    protected function guard()
+//    {
+//        return Auth::guard('api');
+//    }
 
     public function redirectToProvider()
     {
-        //return \Socialite::with('kakao')->redirect();
+        return \Socialite::with('kakao')->redirect();
     }
 
     /**
@@ -47,28 +46,38 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback(Request $request)
+    public function handleProviderCallback()
     {
-//        $user = \Socialite::driver('kakao')->user();
-//        //$kakaoid = $user->getId();
-//        //$avatar = $user->getAvatar();
-//        $kakaoUser = User::where('kakaoid',$kakaoid)->first();
-//
-//        if ($kakaoUser){
-//            Auth::login($kakaoUser);
-//            return redirect('/');
-//        }
-//        $request->session()->put('kakaoid', $kakaoid);
-//        //$request->session()->put('avatar', $avatar);
-//
-//        return redirect('register');
+        $user = Socialite::driver('kakao')->user();
+        $kakaoUser = User::where([
+            'provider' => 'kakao',
+            'socialid' => $user->getId(),
+            //'name' => $user->getNickname(),
+        ])->first();
+
+        if (!$kakaoUser) {
+            $kakaoUser = new User;
+            $kakaoUser->provider = 'kakao';
+            $kakaoUser->socialid = $user->id;
+           // $kakaoUser->name = $user->nickname;
+            $kakaoUser->save();
+        }
+
+        Auth::login($kakaoUser);
+        return redirect('/main');
 
         // $user->token;
     }
 
-    protected function guard()
+    public function getLogout(){
+        $this->getRememberToken();
+        Auth::logout();
+        return redirect('/');
+    }
+
+    public function getRememberToken()
     {
-        return Auth::guard('api');
+        return null;
     }
 
     /**
@@ -76,8 +85,8 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('guest')->except('logout');
+//    }
 }
