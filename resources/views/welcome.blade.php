@@ -65,31 +65,40 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+    +        @if (Auth::user())
+        +            <h2>로그인 중..</h2>
+        +            <a href="/auth/logout">로그아웃</a>
+        +            <h2>로그인정보</h2>
+        +            <p>{{ Auth::user() }}</p>
+        +        @else
+        +            <h2>로그인이 필요합니다.</h2>
+        +            <a href="/auth/naver">네이버로 로그인하기</a>
+        +        @endif
+        {{--<div class="flex-center position-ref full-height">--}}
+            {{--@if (Route::has('login'))--}}
+                {{--<div class="top-right links">--}}
+                    {{--@auth--}}
+                        {{--<a href="{{ url('/home') }}">Home</a>--}}
+                    {{--@else--}}
+                        {{--<a href="{{ route('login') }}">Login</a>--}}
+                        {{--<a href="{{ route('register') }}">Register</a>--}}
+                    {{--@endauth--}}
+                {{--</div>--}}
+            {{--@endif--}}
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+            {{--<div class="content">--}}
+                {{--<div class="title m-b-md">--}}
+                    {{--Laravel--}}
+                {{--</div>--}}
 
-                <div class="links">
-                    <a href="">Documentation</a>
-                    <a href="">Laracasts</a>
-                    <a href="">News</a>
-                    <a href="">Forge</a>
-                    <a href="">GitHub</a>
-                </div>
-            </div>
-        </div>
+                {{--<div class="links">--}}
+                    {{--<a href="">Documentation</a>--}}
+                    {{--<a href="">Laracasts</a>--}}
+                    {{--<a href="">News</a>--}}
+                    {{--<a href="">Forge</a>--}}
+                    {{--<a href="">GitHub</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </body>
 </html>

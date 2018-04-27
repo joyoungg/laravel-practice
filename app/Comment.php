@@ -16,7 +16,7 @@ class Comment extends Model
 //    protected $fillable = ['content_id', 'comment_id', 'name', 'content'];
     protected $fillable = ['content_id', 'name', 'content'];
     protected $table = 'comments';
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     protected static function boot()
     {

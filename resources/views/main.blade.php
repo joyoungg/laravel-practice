@@ -83,11 +83,14 @@
     </div>
 
     <div class="links">
-      <a href="/kakao">카카오톡 로그인</a>
+      <a href="/auth/logout">로그아웃</a>
+      {{--<a href="/kakao">카카오톡 로그인</a>--}}
       <a href="/write">게시글 작성</a>
       <a href="/list">게시글 확인</a>
       <a href="/todo">Todo List</a>
-      <a href="">GitHub</a>
+      <a href="/map">지도</a>
+      {{--<a href="/login/kakao">소셜로그인</a>--}}
+      {{--<a href="">GitHub</a>--}}
     </div>
   </div>
 </div>

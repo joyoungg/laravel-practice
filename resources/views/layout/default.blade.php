@@ -77,7 +77,7 @@
 {{--@endauth--}}
 {{--</div>--}}
 {{--@endif--}}
-@include('layout.header')
+{{--@include('layout.header')--}}
 
 <div id="app">
   @yield('content')

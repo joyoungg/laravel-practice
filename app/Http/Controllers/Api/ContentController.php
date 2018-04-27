@@ -7,9 +7,11 @@ use App\Transformer\ContentTransformer;
 use Illuminate\Http\Request;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+
 use League\Fractal\Manager;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use League\Fractal\Serializer\DataArraySerializer;
 
 class ContentController extends ApiController
 {
@@ -43,14 +45,22 @@ class ContentController extends ApiController
 
     public function list(Request $request)
     {
-        $list = Content::query()->orderBy('id', 'DESC')->paginate(5);
         $fractal = new Manager();
-        //$paginator = $list->paginate($this->perPage);
+            // fractal : data를 원하는 모양으로 출력할 수 있게 해줌
+             // 1. 인스턴스 생성
+        $list = Content::query()->orderBy('id', 'DESC')->paginate(10);
         $collection = $list->getCollection();
+            //paginate 사용
+        //$resource = new Collection($list, new ContentTransformer);
         $resource = new Collection($collection, new ContentTransformer);
+            // 2.
+            // list array를 resource 에 저장
+            // resource는 data가 transform 되기 위한 형태로 만들어주는 wrapper역할
+            // Content 테이블의 결과를 ContentTransformer로 전달
         $resource->setPaginator(new IlluminatePaginatorAdapter($list));
         $result = $fractal->createData($resource)->toArray();
-
+            // 3.
+            // fractal을 이용 -> tramsformed 된 결과를 배열로
         return $result;
 
         //        return response($result, 200);

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\Naver\NaverExtendSocialite;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -13,14 +15,13 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+//        'App\Events\Event' => [
+//            'App\Listeners\EventListener',
+//        ],
+        SocialiteWasCalled::class => [
+            NaverExtendSocialite::class,
+//            'SocialiteProviders\Kakao\KakaoExtendSocialite@handle',
         ],
-        '\SocialiteProviders\Manager\SocialiteWasCalled::class' => [
-            // add your listeners (aka providers) here
-            'SocialiteProviders\Kakao\KakaoExtendSocialite@handle',
-        ],
-
     ];
 
     /**

@@ -5,7 +5,8 @@
     'detail': './default/detail',
     'modify' : './default/modify',
     'default' : './default/default',
-    'todo' : './default/todo'
+    'todo' : './default/todo',
+    'map': './default/map'
   }
 
   $(document).ready(function () {
