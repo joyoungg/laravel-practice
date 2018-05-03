@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Laravel Practice</title>
+  <title>Laravel</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -65,34 +65,34 @@
   </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
-  {{--@if (Route::has('login'))--}}
-  {{--<div class="top-right links">--}}
-  {{--@auth--}}
-  {{--<a href="{{ url('/home') }}">Home</a>--}}
-  {{--@else--}}
-  {{--<a href="{{ route('login') }}">Login</a>--}}
-  {{--<a href="{{ route('register') }}">Register</a>--}}
-  {{--@endauth--}}
-  {{--</div>--}}
-  {{--@endif--}}
+@if (Auth::user())
+  <h2>로그인 중..</h2>
+  {{--<a href="/auth/logout">로그아웃</a>--}}
+  <h2>로그인정보</h2>
+  <p>{{ Auth::user() }}</p>
+@else
+  <h2>로그인이 필요합니다.</h2>
+  <a href="/auth/naver">네이버로 로그인하기</a>
+  <a id="kakao-login-button" href="/auth/kakao">카카오로 로그인하기</a>
 
-  <div class="content">
-    <div class="title m-b-md">
-      My Page
-    </div>
+@endif
+{{--<div class="flex-center position-ref full-height">--}}
+{{--@if (Route::has('login'))--}}
+{{--<div class="top-right links">--}}
+{{--@auth--}}
+{{--<a href="{{ url('/home') }}">Home</a>--}}
+{{--@else--}}
+{{--<a href="{{ route('login') }}">Login</a>--}}
+{{--<a href="{{ route('register') }}">Register</a>--}}
+{{--@endauth--}}
+{{--</div>--}}
+{{--@endif--}}
 
-    <div class="links">
-      {{--<a href="/social">로그인</a>--}}
-      {{--<a href="/kakao">카카오톡 로그인</a>--}}
-      <a href="/write">게시글 작성</a>
-      <a href="/list">게시글 확인</a>
-      <a href="/todo">Todo List</a>
-      <a href="/map">지도</a>
-      {{--<a href="/login/kakao">소셜로그인</a>--}}
-      {{--<a href="">GitHub</a>--}}
-    </div>
-  </div>
-</div>
+{{--<div class="content">--}}
+{{--<div class="title m-b-md">--}}
+{{--Laravel--}}
+{{--</div>--}}
+
+
 </body>
 </html>

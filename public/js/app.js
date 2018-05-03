@@ -7691,53 +7691,85 @@ new Vue({
   data: function data() {
     return {
       todoData: {},
-      todoList: {}
+      todoList: {},
+      todo: {}
     };
   },
   mounted: function mounted() {
     this.$nextTick(function () {
       this.getList();
+      this.getContent();
     });
   },
   methods: {
-    getList: function getList() {
+    getContent: function getContent() {
       var _this = this;
 
-      axios.get('/api/getTodo').then(function (response) {
-        _this.todoList = response.data.data;
-        // console.log(response.data)
+      axios.get('/api/getTodoContent').then(function (response) {
         //console.log(response.data.data)
-        //console.log(response)
+        _this.todo = response.data.data;
       });
     },
-    addTodo: function addTodo() {
+    getList: function getList() {
       var _this2 = this;
 
+      axios.get('/api/getTodoTitle').then(function (response) {
+        _this2.todoList = response.data.data;
+        console.log(_this2.todoList);
+      });
+    },
+    addTitle: function addTitle() {
+      var _this3 = this;
+
       axios.post('/api/addTodo', this.todoData).then(function (result) {
-        //console.log(result)
         if (result.status == 200) {
-          alert('등록!');
-          _this2.getList();
+          console.log('등록!');
+          _this3.getList();
+        }
+      }, function (errors) {
+        console.log(errors);
+      });
+    },
+    addTodo: function addTodo(id) {
+      var _this4 = this;
+
+      this.todoData.title_id = id;
+      axios.post('/api/addTodo', this.todoData).then(function (result) {
+        if (result.status == 200) {
+          console.log('등록!');
+          _this4.getContent();
         }
       }, function (errors) {
         console.log(errors);
       });
     },
     change: function change(id) {
-      var _this3 = this;
+      var _this5 = this;
 
       this.todoData.id = id;
       axios.post('/api/done', this.todoData).then(function (result) {
         console.log(result);
-        _this3.getList();
+        _this5.getContent();
       }, function (errors) {
         console.log(errors);
       });
     },
-    erase: function erase(id) {
+    deleteItem: function deleteItem(id) {
       this.todoData.id = id;
-      axios.delete('/api/erase/' + this.todoData.id);
+      axios.delete('/api/erase/item/' + this.todoData.id);
+      this.getContent();
+    },
+    deleteTitle: function deleteTitle(id) {
+      this.todoData.id = id;
+      axios.delete('/api/erase/title/' + this.todoData.id);
       this.getList();
+    },
+    editTitle: function editTitle(id, title) {
+      this.todoData.id = id;
+      this.todoData.title = title;
+      axios.patch('/api/edit/title', this.todoData).then(function (result) {}, function (errors) {
+        console.log(errors);
+      });
     }
   }
 });
