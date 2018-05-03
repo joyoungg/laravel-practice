@@ -15,10 +15,12 @@ class TodoTransformer extends TransformerAbstract
 {
     public function transform(Todo $todo)
     {
-        return [
-            'id' => $todo->id,
-            'content' => $todo->content,
-            'status' => $todo->status,
-        ];
+            return [
+                'id' => $todo->id,
+                'title' => $todo->title,
+                'content' => $todo->ex,
+                'status' => $todo->status,
+            ];
+
     }
 }
