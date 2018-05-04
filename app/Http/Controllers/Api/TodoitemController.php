@@ -40,7 +40,7 @@ class TodoitemController extends ApiController
     public function store(Request $request)
     {
         $todo = $request->all();
-        if (!($request->content)) {
+        if (!($request->get('content'))) {
             $result = Todotitle::create($todo);
         } else {
             $result = Todoitem::create($todo);
@@ -71,9 +71,9 @@ class TodoitemController extends ApiController
      * @param  \App\Todoitem $todoitem
      * @return \Illuminate\Http\Response
      */
-    public function edit(Todoitem $todoitem)
+    public function edit(Todoitem $todoitem,Request $request)
     {
-        $todo = Todoitem::where('id', $request->id)->update(['content' => $request->content]);
+        $todo = Todoitem::where('id', $request->id)->update(['content' => $request->get('content')]);
         if ($todo) {
             return response($todo, 200);
         } else {

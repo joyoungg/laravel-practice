@@ -36,7 +36,7 @@ class TodoController extends ApiController
     public function store(Request $request)
     {
         $todo = $request->all();
-        if (!($request->content)) {
+        if (!($request->get('content'))) {
             $result = Todotitle::create($todo);
         } else {
             $result = Todoitem::create($todo);
