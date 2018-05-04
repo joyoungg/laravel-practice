@@ -53,20 +53,29 @@
         </td>
 
         <td>
+          {{--투두 목록--}}
           <div v-for="(data, index) in todo" v-if="(item.id == data.title_id&&data.status == 0)">
-            <span>
-               <input type="text" v-model="data.content" style="border: 0px" @keyup.enter="editText(data.id, data.content)">
-                {{--@{{ data.content }}--}}
+            {{--<span dragover="allowDrop(event)" drop="drop(event)">--}}
+            {{--<input type="text" v-model="data.content" style="border: 0px"--}}
+            {{--@keyup.enter="editText(data.id, data.content)">--}}
+            {{--</span>--}}
+
+            <span class="dropzone" draggable="true"
+                  v-on:drag="drag($event)" v-on:dragstart="dragstart($event)" v-on:dragover="dragover($event)" v-on:drop="drop($event)"
+                  v-on:dragend="dragend($event)" v-on:dragenter="dragenter($event)">
+              @{{ data.content }}
             </span>
             <span>
               <button type="button" style="border:none; font-size:5px" @click="change(data.id)">완료</button>
             </span>
+
           </div>
         </td>
 
+        {{--완료 목록--}}
         <td>
           <div v-for="(data, index) in todo" v-if="(item.id == data.title_id&&data.status == 1)">
-            <span>
+            <span class="dropzone">
                 @{{ data.content }}
             </span>
             <span>

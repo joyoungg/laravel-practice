@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('main');
+    return view('default.main');
 });
 Route::get('/social', function () {
     return view('default.social');

@@ -81,7 +81,6 @@
 
 <div id="app">
   @yield('content')
-
 </div>
 
 <script src="{{ mix('/js/manifest.js', config('app.dist')) }}"></script>
