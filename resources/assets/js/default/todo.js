@@ -11,22 +11,19 @@ new Vue({
     this.$nextTick(function () {
       this.getList()
       this.getContent()
+      console.log('mounted!')
     })
   },
   methods: {
     getContent: function () {
       axios.get('/api/getTodoContent').then(response => {
-        //console.log(response.data.data)
         this.todo = response.data.data
       })
-
     },
     getList: function () {
       axios.get('/api/getTodoTitle').then(response => {
         this.todoList = response.data.data
-        console.log(this.todoList)
       })
-
     },
     addTitle: function () {
       axios.post('/api/addTodo', this.todoData).then(result => {
@@ -75,6 +72,42 @@ new Vue({
       }, errors => {
         console.log(errors)
       })
+    },
+    drag: function () {
+      console.log('drag')
+    },
+    dragstart: function (event) {
+      event.target.style.opacity = .5
+    },
+    dragover: function (event) {
+      //prevent default to allow drop
+      event.preventDefault()
+      console.log('drag over')
+    },
+    drop: function (event) {
+      event.preventDefault()
+      console.log(123)
+      // move dragged elem to the selected drop target
+      if (event.target.className == 'dropzone') {
+        event.target.style.background = ''
+        dragged.parentNode.removeChild(dragged)
+        event.target.appendChild(dragged)
+      }
+      var data = event.dataTransfer.getData('Text')
+      console.log(data)
+
+    },
+    dragend: function (event) {
+      // reset the transparency
+      event.target.style.opacity = ''
+      console.log('eeeeeeeeeee')
+    },
+    dragenter: function () {
+      // highlight potential drop target when the draggable element enters it
+      if (event.target.className == 'dropzone') {
+        event.target.style.background = 'purple'
+      }
+      console.log('drag enter')
     }
   }
 })

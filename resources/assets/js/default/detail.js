@@ -48,10 +48,11 @@ new Vue({
       location.href = '/list/modify/' + this.id
     },
     mkComment: function (id) {
+      console.log(this.addComment)
       this.addComment.comment_id = id
       axios.post('/api/comment/create', this.addComment).then(response => {
         alert('코멘트 등록!')
-        location.reload()
+        //location.reload()
       }), error => {
         console.log(error)
       }
