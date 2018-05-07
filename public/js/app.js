@@ -7529,10 +7529,11 @@ new Vue({
       location.href = '/list/modify/' + this.id;
     },
     mkComment: function mkComment(id) {
+      console.log(this.addComment);
       this.addComment.comment_id = id;
       axios.post('/api/comment/create', this.addComment).then(function (response) {
         alert('코멘트 등록!');
-        location.reload();
+        //location.reload()
       }), function (error) {
         console.log(error);
       };
@@ -7687,91 +7688,136 @@ new Vue({
 /***/ (function(module, exports) {
 
 new Vue({
-  el: '#app',
-  data: function data() {
-    return {
-      todoData: {},
-      todoList: {},
-      todo: {}
-    };
-  },
-  mounted: function mounted() {
-    this.$nextTick(function () {
-      this.getList();
-      this.getContent();
-    });
-  },
-  methods: {
-    getContent: function getContent() {
-      var _this = this;
-
-      axios.get('/api/getTodoContent').then(function (response) {
-        //console.log(response.data.data)
-        _this.todo = response.data.data;
-      });
+    el: '#app',
+    data: function data() {
+        return {
+            todoData: {},
+            todoList: {},
+            todo: {}
+        };
     },
-    getList: function getList() {
-      var _this2 = this;
-
-      axios.get('/api/getTodoTitle').then(function (response) {
-        _this2.todoList = response.data.data;
-        console.log(_this2.todoList);
-      });
+    mounted: function mounted() {
+        this.$nextTick(function () {
+            this.getList();
+            this.getContent();
+        });
     },
-    addTitle: function addTitle() {
-      var _this3 = this;
+    methods: {
+        getContent: function getContent() {
+            var _this = this;
 
-      axios.post('/api/addTodo', this.todoData).then(function (result) {
-        if (result.status == 200) {
-          console.log('등록!');
-          _this3.getList();
+            axios.get('/api/getTodoContent').then(function (response) {
+                _this.todo = response.data.data;
+            });
+        },
+        getList: function getList() {
+            var _this2 = this;
+
+            axios.get('/api/getTodoTitle').then(function (response) {
+                _this2.todoList = response.data.data;
+            });
+        },
+        addTitle: function addTitle() {
+            var _this3 = this;
+
+            axios.post('/api/addTodo', this.todoData).then(function (result) {
+                if (result.status == 200) {
+                    console.log('등록!');
+                    _this3.getList();
+                }
+            }, function (errors) {
+                console.log(errors);
+            });
+        },
+        addTodo: function addTodo(id) {
+            var _this4 = this;
+
+            this.todoData.title_id = id;
+            axios.post('/api/addTodo', this.todoData).then(function (result) {
+                if (result.status == 200) {
+                    console.log('등록!');
+                    _this4.getContent();
+                }
+            }, function (errors) {
+                console.log(errors);
+            });
+        },
+        change: function change(id) {
+            var _this5 = this;
+
+            this.todoData.id = id;
+            axios.post('/api/done', this.todoData).then(function (result) {
+                console.log(result);
+                _this5.getContent();
+            }, function (errors) {
+                console.log(errors);
+            });
+        },
+        deleteItem: function deleteItem(id) {
+            this.todoData.id = id;
+            axios.delete('/api/erase/item/' + this.todoData.id);
+            this.getContent();
+        },
+        deleteTitle: function deleteTitle(id) {
+            this.todoData.id = id;
+            axios.delete('/api/erase/title/' + this.todoData.id);
+            this.getList();
+        },
+        editTitle: function editTitle(id, title) {
+            this.todoData.id = id;
+            this.todoData.title = title;
+            axios.patch('/api/edit/title', this.todoData).then(function (result) {}, function (errors) {
+                console.log(errors);
+            });
+        },
+        dragstart: function dragstart(event) {
+            event.target.style.opacity = '0.5';
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData("text/plain", event.target.id);
+        },
+        dragover: function dragover(event) {
+            event.preventDefault();
+        },
+        drop: function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text/plain");
+            var dragged = document.getElementById(data);
+            console.log(event.target.parentNode.parentNode);
+            if (!data) {
+                console.log('nothing!!');
+            } else {
+                console.log('data part');
+                if (event.target.parentNode.parentNode.className == 'completezone' || 'todozone') {
+                    event.target.style.background = '';
+                    dragged.parentNode.removeChild(dragged);
+                    event.target.parentNode.parentNode.insertAdjacentElement('afterend', dragged);
+                }
+            }
+            if (dragged.parentNode.className != event.target.parentNode.id) {
+                this.change(dragged.id);
+            }
+        },
+        dragenter: function dragenter(event) {
+            event.preventDefault();
+            // highlight potential drop target when the draggable element enters it
+            if (event.target.parentNode.parentNode.className == 'completezone' || 'todozone') {
+                event.target.style.background = 'purple';
+            }
+        },
+        dragleave: function dragleave(event) {
+            event.preventDefault();
+            if (event.target.parentNode.parentNode.className == 'completezone' || 'todozone') {
+                event.target.style.background = "";
+            }
+        },
+        allowDrop: function allowDrop(event) {
+            if (event.target.getAttribute('draggable') == 'true') {
+                event.preventDefault();
+            } else {
+                event.dataTransfer.dropEffect = 'all';
+            }
         }
-      }, function (errors) {
-        console.log(errors);
-      });
-    },
-    addTodo: function addTodo(id) {
-      var _this4 = this;
-
-      this.todoData.title_id = id;
-      axios.post('/api/addTodo', this.todoData).then(function (result) {
-        if (result.status == 200) {
-          console.log('등록!');
-          _this4.getContent();
-        }
-      }, function (errors) {
-        console.log(errors);
-      });
-    },
-    change: function change(id) {
-      var _this5 = this;
-
-      this.todoData.id = id;
-      axios.post('/api/done', this.todoData).then(function (result) {
-        console.log(result);
-        _this5.getContent();
-      }, function (errors) {
-        console.log(errors);
-      });
-    },
-    deleteItem: function deleteItem(id) {
-      this.todoData.id = id;
-      axios.delete('/api/erase/item/' + this.todoData.id);
-      this.getContent();
-    },
-    deleteTitle: function deleteTitle(id) {
-      this.todoData.id = id;
-      axios.delete('/api/erase/title/' + this.todoData.id);
-      this.getList();
-    },
-    editTitle: function editTitle(id, title) {
-      this.todoData.id = id;
-      this.todoData.title = title;
-      axios.patch('/api/edit/title', this.todoData).then(function (result) {}, function (errors) {
-        console.log(errors);
-      });
     }
-  }
 });
 
 /***/ }),
